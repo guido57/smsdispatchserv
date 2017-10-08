@@ -6,7 +6,8 @@ Options:
 - filter the received SMS text content
 - choose one or more SMS recipients
  
-[![N|Solid](https://www.dogsally.com/github/smsdispatchserv_main.jpg)](https://nodesource.com/products/nsolid)
+[![N|Solid](https://www.dogsally.com/github/smsdispatchserv_main.jpg)](https://www.dogsally.com/github/smsdispatchserv_main.jpg)
+[![N|Solid](https://www.dogsally.com/github/smsdispatchserv_profile.jpg)](https://www.dogsally.com/github/smsdispatchserv_profile.jpg)
   
 
 ### Logic Diagram - Fig.1
