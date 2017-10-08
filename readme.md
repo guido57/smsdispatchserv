@@ -28,7 +28,7 @@ In this settings page, you set the SMS sender(s), the recipient(s) and one or mo
 
 
 ### Logic Diagram - Fig.1
-[![N|Solid](https://www.dogsally.com/github/neverendingservice.jpg)](https://nodesource.com/products/nsolid)
+[![N|Solid](https://www.dogsally.com/github/smsdispatchserv_logic.jpg)](https://www.dogsally.com/github/smsdispatchserv_logic.jpg)
 
 Logic Diagram Explanation
 - After booting, BootActivity receives BOOT_COMPLETED from Android System
