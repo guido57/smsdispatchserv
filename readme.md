@@ -31,9 +31,19 @@ In this settings page, you set the SMS sender(s), the recipient(s) and one or mo
 [![N|Solid](https://www.dogsally.com/github/smsdispatchserv_logic.jpg)](https://www.dogsally.com/github/smsdispatchserv_logic.jpg)
 
 Logic Diagram Explanation
-- After booting, BootActivity receives BOOT_COMPLETED from Android System
-- BootActivity starts the SensorService service and finish
-- SensorService runs continuosly, even when screen is off or the device is in sleep mode. 
-- Whenever Android kills SensorService, onDestroy broadcasts an intent to SensorRestasterBroadcastReceiver
-- SensorRestasterBroadcastReceiver starts the SensorService service
-- The MainActivity is useless at the moment, but it can be filled with user interactions
+- After booting, SensorService is started by BOOT_COMPLETED
+- SensorService runs silently and continuosly, even when screen is off or the device is in sleep mode. 
+- Whenever Android kills SensorService:
+    - onDestroy broadcasts an intent to SensorRestasterBroadcastReceiver
+    - SensorRestasterBroadcastReceiver starts the SensorService service again
+When     
+        
+- The MainActivity contains a ListView to log all the SMS received and sent
+- The ProfileActivity contains a RecyclerView with the following items:
+    - 1 Button ButtonAddFrom to add one or more "From" items
+    - EditView "From" item to set one SMS sender
+    - 1 Button ButtonAddTo to add one or more "To" items
+    - EditView "To" item to set one SMS recipient
+    - 1 Button ButtonAddFilter  to add one or more "Filter" item 
+    - EditView "Filter" item to set one SMS test message filter, accepting Regular Espression (REGEX) sintax, as: 
+        - (.*) any number of characters
