@@ -17,7 +17,7 @@ This app dispatches received SMS to other phone numbers.
     - swiping on recent apps 
     - going to Settings/Apps/Apps Info/Force Stop
  
-### Screenshots
+###Screenshots
 In this main page you see your SMS log, with all the received and sent SMS
 
 [![N|Solid](https://www.dogsally.com/github/smsdispatchserv_main.jpg)](https://www.dogsally.com/github/smsdispatchserv_main.jpg)
@@ -27,7 +27,7 @@ In this settings page, you set the SMS sender(s), the recipient(s) and one or mo
 [![N|Solid](https://www.dogsally.com/github/smsdispatchserv_profile.jpg)](https://www.dogsally.com/github/smsdispatchserv_profile.jpg)
 
 
-### Logic Diagram - Fig.1
+###Logic Diagram - Fig.1
 [![N|Solid](https://www.dogsally.com/github/neverendingservice.jpg)](https://nodesource.com/products/nsolid)
 
 Logic Diagram Explanation
