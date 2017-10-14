@@ -14,7 +14,7 @@ import java.util.TimerTask;
  * Created by fabio on 30/01/2016.
  */
 public class SensorService extends Service {
-    public int counter=0;
+    public static int counter=0;
     public SensorService(Context applicationContext) {
         super();
         Log.i("HERE", "here I am!");

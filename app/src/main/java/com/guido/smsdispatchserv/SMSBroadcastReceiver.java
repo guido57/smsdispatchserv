@@ -64,8 +64,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             msgs = new SmsMessage[pdus.length];
             for (int i=0; i<msgs.length; i++){
                 msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
-                str = "SMS from " + msgs[i].getOriginatingAddress();
-                str += " :";
+                str = "\r\nSMS from " + msgs[i].getOriginatingAddress();
+                str += "\r\n";
                 str += msgs[i].getMessageBody().toString();
                 addListLog(str);
                 // process SMS and take the proper actions
@@ -120,7 +120,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                                     new IntentFilter(myUniqueActionIntent));
                             smsManager.sendTextMessage(pi.Text, null,
                                     msg, sentIntent, null);
-                            addListLog("Sending " + myUniqueActionIntent);
+                            addListLog("\r\nSending " + myUniqueActionIntent);
                         }
                     }
                     break;

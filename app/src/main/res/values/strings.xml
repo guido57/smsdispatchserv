@@ -78,7 +78,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="btnClearList">Clear List</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">Profile</string>
     <string name="action_profile">Profile</string>
     <string name="btnDeleteText">Delete</string>
 </resources>
