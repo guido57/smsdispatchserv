@@ -36,6 +36,15 @@
                 android:value="com.guido.smsdispatchserv.MainActivity" />
         </activity>
 
+        <service
+            android:exported="true"
+            android:enabled="true"
+            android:name=".MyJobService">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+
 
         <receiver android:name="com.guido.smsdispatchserv.SMSBroadcastReceiver"
             android:enabled="true"
@@ -45,21 +54,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.REBOOT" />
 
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".SensorService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <receiver
-            android:name=".SensorRestarterBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:label="RestartServiceWhenStopped">
-            <intent-filter>
-                <action android:name="uk.ac.shef.oak.ActivityRecognition.RestartSensor" />
             </intent-filter>
         </receiver>
 

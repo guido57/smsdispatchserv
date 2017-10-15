@@ -31,5 +31,7 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:support-vector-drawable:26.+'
     compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.firebase:firebase-jobdispatcher:0.8.3'
+
     testCompile 'junit:junit:4.12'
 }

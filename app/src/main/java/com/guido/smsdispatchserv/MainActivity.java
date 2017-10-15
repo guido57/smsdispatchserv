@@ -26,6 +26,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -86,14 +92,56 @@ public class MainActivity extends AppCompatActivity {
         CheckSMSPermission();
 
         // start SensorService if not started yet
-        SensorService mSensorService = new SensorService(this);
-        Intent mServiceIntent = new Intent(this, mSensorService.getClass());
-        if (!isMyServiceRunning(mSensorService.getClass())) {
-            startService(mServiceIntent);
-        }
+  //      SensorService mSensorService = new SensorService(this);
+  //      Intent mServiceIntent = new Intent(this, mSensorService.getClass());
+  //      if (!isMyServiceRunning(mSensorService.getClass())) {
+  //          startService(mServiceIntent);
+  //      }
+        StartTheJob(getApplicationContext());
 
     }
 
+    static FirebaseJobDispatcher  dispatcher;
+
+    public static void StartTheJob(Context context){
+
+        // Create a new dispatcher using the Google Play driver.
+        dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
+
+        Bundle myExtrasBundle = new Bundle();
+        myExtrasBundle.putString("some_key", "some_value");
+
+        Job myJob = dispatcher.newJobBuilder()
+                // the JobService that will be called
+                .setService(MyJobService.class)
+                // uniquely identifies the job
+                .setTag("com.guido.smsdispatchserver.my-unique-tag")
+                // one-off job
+                .setRecurring(true)
+                // don't persist past a device reboot
+                //.setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                .setLifetime(Lifetime.FOREVER)
+                // start between 0 and 60 seconds from now
+                //.setTrigger(Trigger.executionWindow(0, 60))
+                .setTrigger(Trigger.executionWindow(1,1))
+                // don't overwrite an existing job with the same tag
+                .setReplaceCurrent(true)
+                // retry with exponential backoff
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                // constraints that need to be satisfied for the job to run
+                // .setConstraints(
+                // only run on an unmetered network
+                // Constraint.ON_UNMETERED_NETWORK
+                // only run when the device is charging
+                // ,Constraint.DEVICE_CHARGING
+                // )
+                //.setExtras(myExtrasBundle)
+                .build();
+
+        dispatcher.schedule(myJob);
+    }
+
+/*
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -105,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i ("isMyServiceRunning?", false+"");
         return false;
     }
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
