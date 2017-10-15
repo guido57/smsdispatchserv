@@ -31,13 +31,10 @@ In this settings page, you set the SMS sender(s), the recipient(s) and one or mo
 [![N|Solid](https://www.dogsally.com/github/smsdispatchserv_logic.jpg)](https://www.dogsally.com/github/smsdispatchserv_logic.jpg)
 
 Logic Diagram Explanation
-- After booting, SensorService is started by BOOT_COMPLETED
-- SensorService runs silently and continuosly, even when screen is off or the device is in sleep mode. 
-- Whenever Android kills SensorService:
-    - onDestroy broadcasts an intent to SensorRestasterBroadcastReceiver
-    - SensorRestasterBroadcastReceiver starts the SensorService service again
-When     
-        
+- When SMSBroadcastReceiver receives:
+    - BOOT_COMPLETED -> it starts JobService
+    - SMS_RECEIVED -> it processes the received SMS
+- MyJobService runs silently and continuosly, even when screen is off or the device is in sleep mode. 
 - The MainActivity contains a ListView to log all the SMS received and sent
 - The ProfileActivity contains a RecyclerView with the following items:
     - 1 Button ButtonAddFrom to add one or more "From" items
