@@ -3,11 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.guido.smsdispatchserv.MainActivity">
     <item
-        android:id="@+id/action_profile"
-        android:orderInCategory="90"
-        android:title="@string/action_profile"
+        android:id="@+id/action_counter"
+        android:orderInCategory="80"
+        android:title="counter"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="60"
+        android:title="settings"
         android:icon="@drawable/ic_action_settings"
-        app:showAsAction="always" />
+        app:showAsAction="always" >
+
+
+    </item>
 <!--
     <item
         android:id="@+id/action_settings"

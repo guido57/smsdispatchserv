@@ -41,16 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     Activity mActivity;
 
+    static MenuItem mMenuItemCounter;
+
     final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0;
     final int MY_PERMISSIONS_REQUEST_READ_SMS = 1;
     final int MY_PERMISSIONS_REQUEST_SEND_SMS = 2;
     final int MY_PERMISSIONS_READ_PHONE_STATE = 3;
+
+    final static String JobServiceTAG = "com.guido.smsdispatchserver.my-unique-tag";
 
     //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
     ArrayList<String> listLogItems=new ArrayList<String>();
 
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     ArrayAdapter<String> listLogAdapter;
+
+    SharedPreferences prefs;
 
 
     @Override
@@ -86,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         listLog.setAdapter(listLogAdapter);
 
         // register the preference listenere
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         prefs.registerOnSharedPreferenceChangeListener(spChanged);
 
         CheckSMSPermission();
@@ -97,8 +103,14 @@ public class MainActivity extends AppCompatActivity {
   //      if (!isMyServiceRunning(mSensorService.getClass())) {
   //          startService(mServiceIntent);
   //      }
-        StartTheJob(getApplicationContext());
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // got here after onCreate and onStart or coming from Settings (where the JobService suld be set Active or Inactive
+        StartStopJobService();
     }
 
     static FirebaseJobDispatcher  dispatcher;
@@ -115,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 // the JobService that will be called
                 .setService(MyJobService.class)
                 // uniquely identifies the job
-                .setTag("com.guido.smsdispatchserver.my-unique-tag")
+                .setTag(JobServiceTAG)
                 // one-off job
                 .setRecurring(true)
                 // don't persist past a device reboot
@@ -141,6 +153,15 @@ public class MainActivity extends AppCompatActivity {
         dispatcher.schedule(myJob);
     }
 
+    public static void StopTheJob(Context context){
+
+        // Create a new dispatcher using the Google Play driver.
+        if(dispatcher==null)
+            dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
+        dispatcher.cancel(JobServiceTAG);
+    }
+
+
 /*
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -159,8 +180,31 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        mMenuItemCounter = menu.findItem(R.id.action_counter);
+        //now mMenuItemCounter is created and must be updated
+        StartStopJobService();
         return true;
     }
+
+    public void StartStopJobService(){
+
+        // can do this after mMenuItemCounter creation only
+        boolean keepaliveservice_active = prefs.getBoolean("pref_keepalive_service_active", true);
+        if(keepaliveservice_active){
+            Log.i(SMSBroadcastReceiver.class.getSimpleName(), "Called ater boot!!!!");
+            // context.startService(new Intent(context, SensorService.class));
+            StartTheJob(getApplicationContext());
+            if(mMenuItemCounter != null )
+                mMenuItemCounter.setTitle("Active");
+        }else{
+            StopTheJob(getApplicationContext());
+            if(mMenuItemCounter != null )
+                mMenuItemCounter.setTitle("Inactive");
+        }
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -177,8 +221,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else
  */
-        if (id == R.id.action_profile) {
-            Intent intent = new Intent(this, ProfileActivity.class);
+         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
         }

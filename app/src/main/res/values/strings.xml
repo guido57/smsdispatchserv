@@ -9,7 +9,7 @@
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_general">Settings</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
@@ -81,4 +81,7 @@
     <string name="title_activity_profile">Profile</string>
     <string name="action_profile">Profile</string>
     <string name="btnDeleteText">Delete</string>
+    <string name="pref_keepalive_service_active">Keepalive Service Active</string>
+    <string name="pref_title_keepalive_service_active">The keep alive service starts on boot and it\'s always active</string>
+    <string name="pref_header_profile">Profile</string>
 </resources>

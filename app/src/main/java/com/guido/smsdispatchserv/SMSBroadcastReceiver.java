@@ -46,9 +46,12 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             context.startActivity(myStarterIntent);
             return;
 */
-            Log.i(SMSBroadcastReceiver.class.getSimpleName(), "Called ater boot!!!!");
-            // context.startService(new Intent(context, SensorService.class));
-            MainActivity.StartTheJob(context);
+            boolean keepaliveservice_active = prefs.getBoolean("pref_keepalive_service_active", true);
+            if(keepaliveservice_active){
+                Log.i(SMSBroadcastReceiver.class.getSimpleName(), "Called ater boot!!!!");
+                // context.startService(new Intent(context, SensorService.class));
+                MainActivity.StartTheJob(context);
+            }
             return;
         }
         //---get the SMS message passed in---

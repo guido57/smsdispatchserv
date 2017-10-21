@@ -3,10 +3,15 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.guido.smsdispatchserv.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
-        android:title="@string/pref_header_general" />
+        android:fragment="com.guido.smsdispatchserv.SettingsActivity$ProfilePreferenceFragment"
+        android:icon="@drawable/ic_action_face"
+        android:title="@string/pref_header_profile" />
 
+    <header
+        android:fragment="com.guido.smsdispatchserv.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_action_settings_black"
+        android:title="@string/pref_header_general" />
+<!--
     <header
         android:fragment="com.guido.smsdispatchserv.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
@@ -16,5 +21,5 @@
         android:fragment="com.guido.smsdispatchserv.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
         android:title="@string/pref_header_data_sync" />
-
+-->
 </preference-headers>
